@@ -67,7 +67,7 @@
                                 </td>
                             </tr>
                         @elseif ($hasCompletedEvaluation)
-                            @if ($evaluationRound == 1)
+                            @if ($evaluationRound === 1)
                                 <tr>
                                     <td colspan="5" class="px-4 py-6 border">
                                         <div class="bg-green-100 text-green-700 p-4 rounded-md">
@@ -78,7 +78,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @elseif($evaluationRound == 2)
+                            @elseif($evaluationRound === 2)
                                 <tr>
                                     <td colspan="5" class="px-4 py-6 border">
                                         <div class="bg-green-100 text-green-700 p-4 rounded-md">

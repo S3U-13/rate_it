@@ -29,15 +29,24 @@ class SummarizeController extends Controller
     public function index()
     {
         $now = Carbon::now('Asia/Bangkok');
+        $currentYear = $now->year;
+        $currentMonth = $now->month;
 
-        // รอบ 1: 1 ต.ค. ปีนี้ ถึง 31 มี.ค. ปีหน้า
-        $startRound1 = Carbon::create($now->year, 10, 1);
-        $endRound1   = Carbon::create($now->year + 1, 3, 31)->endOfDay();
+        if ($currentMonth >= 10) {
+            // ช่วง ต.ค. - ธ.ค.
+            $startRound1 = Carbon::create($currentYear, 10, 1)->startOfDay();
+            $endRound1   = Carbon::create($currentYear + 1, 3, 31)->endOfDay();
 
-        // รอบ 2: 1 เม.ย. ปีหน้า ถึง 30 ก.ย. ปีหน้า
-        $startRound2 = Carbon::create($now->year + 1, 4, 1);
-        $endRound2   = Carbon::create($now->year + 1, 9, 30)->endOfDay();
+            $startRound2 = Carbon::create($currentYear + 1, 4, 1)->startOfDay();
+            $endRound2   = Carbon::create($currentYear + 1, 9, 30)->endOfDay();
+        } else {
+            // ช่วง ม.ค. - ก.ย.
+            $startRound1 = Carbon::create($currentYear - 1, 10, 1)->startOfDay();
+            $endRound1   = Carbon::create($currentYear, 3, 31)->endOfDay();
 
+            $startRound2 = Carbon::create($currentYear, 4, 1)->startOfDay();
+            $endRound2   = Carbon::create($currentYear, 9, 30)->endOfDay();
+        }
         $evaluationRound = null;
 
         if ($now->between($startRound1, $endRound1)) {
@@ -61,7 +70,7 @@ class SummarizeController extends Controller
             })
             ->get()
             ->filter(function ($personal) use ($evaluationRound) {
-                return $personal->round = $evaluationRound; // ใช้ Accessor
+                return $personal->round == $evaluationRound; // ใช้ Accessor
             });
 
         $hasCompletedEvaluation = $personals->isEmpty();
@@ -71,14 +80,24 @@ class SummarizeController extends Controller
     public function create($id)
     {
         $now = Carbon::now('Asia/Bangkok');
+        $currentYear = $now->year;
+        $currentMonth = $now->month;
 
-        // รอบ 1: 1 ต.ค. ปีนี้ ถึง 31 มี.ค. ปีหน้า
-        $startRound1 = Carbon::create($now->year, 10, 1);
-        $endRound1   = Carbon::create($now->year + 1, 3, 31)->endOfDay();
+        if ($currentMonth >= 10) {
+            // ช่วง ต.ค. - ธ.ค.
+            $startRound1 = Carbon::create($currentYear, 10, 1)->startOfDay();
+            $endRound1   = Carbon::create($currentYear + 1, 3, 31)->endOfDay();
 
-        // รอบ 2: 1 เม.ย. ปีหน้า ถึง 30 ก.ย. ปีหน้า
-        $startRound2 = Carbon::create($now->year + 1, 4, 1);
-        $endRound2   = Carbon::create($now->year + 1, 9, 30)->endOfDay();
+            $startRound2 = Carbon::create($currentYear + 1, 4, 1)->startOfDay();
+            $endRound2   = Carbon::create($currentYear + 1, 9, 30)->endOfDay();
+        } else {
+            // ช่วง ม.ค. - ก.ย.
+            $startRound1 = Carbon::create($currentYear - 1, 10, 1)->startOfDay();
+            $endRound1   = Carbon::create($currentYear, 3, 31)->endOfDay();
+
+            $startRound2 = Carbon::create($currentYear, 4, 1)->startOfDay();
+            $endRound2   = Carbon::create($currentYear, 9, 30)->endOfDay();
+        }
 
         $evaluationRound = null;
 
@@ -103,14 +122,24 @@ class SummarizeController extends Controller
     public function create_full_time($id)
     {
         $now = Carbon::now('Asia/Bangkok');
+        $currentYear = $now->year;
+        $currentMonth = $now->month;
 
-        // รอบ 1: 1 ต.ค. ปีนี้ ถึง 31 มี.ค. ปีหน้า
-        $startRound1 = Carbon::create($now->year, 10, 1);
-        $endRound1   = Carbon::create($now->year + 1, 3, 31)->endOfDay();
+        if ($currentMonth >= 10) {
+            // ช่วง ต.ค. - ธ.ค.
+            $startRound1 = Carbon::create($currentYear, 10, 1)->startOfDay();
+            $endRound1   = Carbon::create($currentYear + 1, 3, 31)->endOfDay();
 
-        // รอบ 2: 1 เม.ย. ปีหน้า ถึง 30 ก.ย. ปีหน้า
-        $startRound2 = Carbon::create($now->year + 1, 4, 1);
-        $endRound2   = Carbon::create($now->year + 1, 9, 30)->endOfDay();
+            $startRound2 = Carbon::create($currentYear + 1, 4, 1)->startOfDay();
+            $endRound2   = Carbon::create($currentYear + 1, 9, 30)->endOfDay();
+        } else {
+            // ช่วง ม.ค. - ก.ย.
+            $startRound1 = Carbon::create($currentYear - 1, 10, 1)->startOfDay();
+            $endRound1   = Carbon::create($currentYear, 3, 31)->endOfDay();
+
+            $startRound2 = Carbon::create($currentYear, 4, 1)->startOfDay();
+            $endRound2   = Carbon::create($currentYear, 9, 30)->endOfDay();
+        }
 
         $evaluationRound = null;
 
@@ -136,14 +165,24 @@ class SummarizeController extends Controller
     public function create_general_government($id)
     {
         $now = Carbon::now('Asia/Bangkok');
+        $currentYear = $now->year;
+        $currentMonth = $now->month;
 
-        // รอบ 1: 1 ต.ค. ปีนี้ ถึง 31 มี.ค. ปีหน้า
-        $startRound1 = Carbon::create($now->year, 10, 1);
-        $endRound1   = Carbon::create($now->year + 1, 3, 31)->endOfDay();
+        if ($currentMonth >= 10) {
+            // ช่วง ต.ค. - ธ.ค.
+            $startRound1 = Carbon::create($currentYear, 10, 1)->startOfDay();
+            $endRound1   = Carbon::create($currentYear + 1, 3, 31)->endOfDay();
 
-        // รอบ 2: 1 เม.ย. ปีหน้า ถึง 30 ก.ย. ปีหน้า
-        $startRound2 = Carbon::create($now->year + 1, 4, 1);
-        $endRound2   = Carbon::create($now->year + 1, 9, 30)->endOfDay();
+            $startRound2 = Carbon::create($currentYear + 1, 4, 1)->startOfDay();
+            $endRound2   = Carbon::create($currentYear + 1, 9, 30)->endOfDay();
+        } else {
+            // ช่วง ม.ค. - ก.ย.
+            $startRound1 = Carbon::create($currentYear - 1, 10, 1)->startOfDay();
+            $endRound1   = Carbon::create($currentYear, 3, 31)->endOfDay();
+
+            $startRound2 = Carbon::create($currentYear, 4, 1)->startOfDay();
+            $endRound2   = Carbon::create($currentYear, 9, 30)->endOfDay();
+        }
 
         $evaluationRound = null;
 
@@ -170,14 +209,24 @@ class SummarizeController extends Controller
     public function create_ministry_of_public_health($id)
     {
         $now = Carbon::now('Asia/Bangkok');
+        $currentYear = $now->year;
+        $currentMonth = $now->month;
 
-        // รอบ 1: 1 ต.ค. ปีนี้ ถึง 31 มี.ค. ปีหน้า
-        $startRound1 = Carbon::create($now->year, 10, 1);
-        $endRound1   = Carbon::create($now->year + 1, 3, 31)->endOfDay();
+        if ($currentMonth >= 10) {
+            // ช่วง ต.ค. - ธ.ค.
+            $startRound1 = Carbon::create($currentYear, 10, 1)->startOfDay();
+            $endRound1   = Carbon::create($currentYear + 1, 3, 31)->endOfDay();
 
-        // รอบ 2: 1 เม.ย. ปีหน้า ถึง 30 ก.ย. ปีหน้า
-        $startRound2 = Carbon::create($now->year + 1, 4, 1);
-        $endRound2   = Carbon::create($now->year + 1, 9, 30)->endOfDay();
+            $startRound2 = Carbon::create($currentYear + 1, 4, 1)->startOfDay();
+            $endRound2   = Carbon::create($currentYear + 1, 9, 30)->endOfDay();
+        } else {
+            // ช่วง ม.ค. - ก.ย.
+            $startRound1 = Carbon::create($currentYear - 1, 10, 1)->startOfDay();
+            $endRound1   = Carbon::create($currentYear, 3, 31)->endOfDay();
+
+            $startRound2 = Carbon::create($currentYear, 4, 1)->startOfDay();
+            $endRound2   = Carbon::create($currentYear, 9, 30)->endOfDay();
+        }
 
         $evaluationRound = null;
 
@@ -201,14 +250,24 @@ class SummarizeController extends Controller
     public function create_temporary($id)
     {
         $now = Carbon::now('Asia/Bangkok');
+        $currentYear = $now->year;
+        $currentMonth = $now->month;
 
-        // รอบ 1: 1 ต.ค. ปีนี้ ถึง 31 มี.ค. ปีหน้า
-        $startRound1 = Carbon::create($now->year, 10, 1);
-        $endRound1   = Carbon::create($now->year + 1, 3, 31)->endOfDay();
+        if ($currentMonth >= 10) {
+            // ช่วง ต.ค. - ธ.ค.
+            $startRound1 = Carbon::create($currentYear, 10, 1)->startOfDay();
+            $endRound1   = Carbon::create($currentYear + 1, 3, 31)->endOfDay();
 
-        // รอบ 2: 1 เม.ย. ปีหน้า ถึง 30 ก.ย. ปีหน้า
-        $startRound2 = Carbon::create($now->year + 1, 4, 1);
-        $endRound2   = Carbon::create($now->year + 1, 9, 30)->endOfDay();
+            $startRound2 = Carbon::create($currentYear + 1, 4, 1)->startOfDay();
+            $endRound2   = Carbon::create($currentYear + 1, 9, 30)->endOfDay();
+        } else {
+            // ช่วง ม.ค. - ก.ย.
+            $startRound1 = Carbon::create($currentYear - 1, 10, 1)->startOfDay();
+            $endRound1   = Carbon::create($currentYear, 3, 31)->endOfDay();
+
+            $startRound2 = Carbon::create($currentYear, 4, 1)->startOfDay();
+            $endRound2   = Carbon::create($currentYear, 9, 30)->endOfDay();
+        }
 
         $evaluationRound = null;
 
